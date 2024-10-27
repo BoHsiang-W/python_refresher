@@ -32,7 +32,7 @@ def both(*args, **kwargs):
 
 both(1, 3, 5, name="Bob", age=25) # (1, 3, 5) {'name': 'Bob', 'age': 25}
 
-## Unpacking keyword arguments
+## Unpacking keyword arguments with kwargs
 def my_function(**kwargs):
     print(kwargs)
 
