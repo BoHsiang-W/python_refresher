@@ -8,7 +8,7 @@
 my_list = [33, 33, 34]
 
 # 2.
-my_tuple = (15,) # Note the comma after the value
+my_tuple = (15,)  # Note the comma after the value
 
 # 3.
 set1 = {14, 5, 9, 31, 12, 77, 67, 8}

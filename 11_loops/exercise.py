@@ -19,4 +19,3 @@ if user_input == "a":
     print("Add")
 elif user_input == "q":
     print("Quit")
-

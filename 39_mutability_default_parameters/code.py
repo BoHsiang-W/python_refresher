@@ -1,5 +1,6 @@
 from typing import List, Optional
 
+
 class Student:
     def __init__(self, name: str, grades: Optional[List[int]] = None):
         self.name = name
@@ -8,9 +9,9 @@ class Student:
     def take_exam(self, result):
         self.grades.append(result)
 
+
 bob = Student("Bob")
 rolf = Student("Rolf")
 bob.take_exam(90)
-print(bob.grades)    # [90]
-print(rolf.grades)    # []
-
+print(bob.grades)  # [90]
+print(rolf.grades)  # []

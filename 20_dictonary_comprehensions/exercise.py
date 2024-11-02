@@ -5,16 +5,14 @@
 ## Implement a function calculating a total average grade for a class of students.
 
 ### Part 1
-student = {
-    "name": "Rolf",
-    "school": "Computing",
-    "grades": (66, 77, 88, 99)
-}
+student = {"name": "Rolf", "school": "Computing", "grades": (66, 77, 88, 99)}
+
 
 ### Part 2
 def average_grade(data):
     grades = data["grades"]
     return sum(grades) / len(grades)
+
 
 ### Part 3
 def average_grade_all_students(students):

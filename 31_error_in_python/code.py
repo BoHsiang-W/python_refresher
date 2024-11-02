@@ -4,6 +4,7 @@ def divide(dividend, divisor):
         return
     return dividend / divisor
 
+
 divide(15, 0)
 
 ####################################################################################################
@@ -13,22 +14,26 @@ print("Welcome to the average grade program.")
 average = divide(sum(grade), len(grade))
 print(f"The average grade is {average}.")
 
+
 ####################################################################################################
 def divide_1(dividend, divisor):
     if divisor == 0:
         raise ZeroDivisionError("Divisor cannot be 0.")
     return dividend / divisor
 
+
 grade = []
 print("Welcome to the average grade program.")
 average = divide_1(sum(grade), len(grade))
 print(f"The average grade is {average}.")
+
 
 ####################################################################################################
 def divide_2(dividend, divisor):
     if divisor == 0:
         raise ZeroDivisionError("Divisor cannot be 0.")
     return dividend / divisor
+
 
 grade = []
 print("Welcome to the average grade program.")
@@ -46,7 +51,7 @@ finally:
 students = [
     {"name": "Bob", "grades": [88, 99, 77, 55, 33, 22, 11, 44, 66, 100]},
     {"name": "Rolf", "grades": []},
-    {"name": "Charlie", "grades": None}
+    {"name": "Charlie", "grades": None},
 ]
 
 try:
