@@ -15,7 +15,7 @@ stores = [
 ]
 
 @app.get('/store')  # http://127.0.0.1:5000/store
-def get_store():
+def get_stores():
     return {"store": stores}
 
 
@@ -30,7 +30,7 @@ def create_store():
     return new_store, 201
 
 @app.post('/store/<string:name>/item')
-def create_item_in_store(name):
+def create_item(name):
     request_data = request.get_json()
     for store in stores:
         if store["name"] == name:
@@ -41,3 +41,17 @@ def create_item_in_store(name):
             store["items"].append(new_item)
             return new_item, 201
     return {"messag": "Store not found"}, 404
+
+@app.get('/store/<string:name>')
+def get_store(name):
+    for store in stores:
+        if store["name"] == name:
+            return store
+    return {"message": "Store not found"}, 404
+
+@app.get('/store/<string:name>/item')
+def get_item(name):
+    for store in stores:
+        if store["name"] == name:
+            return {"items": store["items"]}
+    return {"message": "Store not found"}, 404
