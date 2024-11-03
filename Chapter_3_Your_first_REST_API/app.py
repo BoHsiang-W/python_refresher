@@ -6,6 +6,9 @@ from db import stores, items
 app = Flask(__name__)
 
 
+########################## Store routes ##########################
+
+
 @app.get("/store")  # http://127.0.0.1:5000/store
 def get_stores():
     return {"store": list(stores.values())}
@@ -25,6 +28,26 @@ def create_store():
     new_store = {**store_data, "id": store_id}
     stores[store_id] = new_store
     return new_store, 201
+
+
+@app.get("/store/<string:store_id>")
+def get_store(store_id):
+    try:
+        return stores[store_id]
+    except KeyError:
+        abort(404, message="Store not found")
+
+
+@app.delete("/store/<string:store_id>")
+def delete_store(store_id):
+    try:
+        del stores[store_id]
+        return {"message": "Store deleted successfully"}
+    except KeyError:
+        abort(404, message="Store not found")
+
+
+########################## Item routes ##########################
 
 
 @app.post("/item")
@@ -54,22 +77,37 @@ def create_item():
     return new_item, 201
 
 
-@app.get("/item")
-def get_all_item():
-    return {"item": list(items.values())}
-
-
-@app.get("/store/<string:store_id>")
-def get_store(store_id):
-    try:
-        return stores[store_id]
-    except KeyError:
-        abort(404, message="Store not found")
-
-
 @app.get("/item/<string:item_id>")
 def get_items(item_id):
     try:
         return items[item_id]
     except KeyError:
         abort(404, message="Item not found")
+
+
+@app.delete("/item/<string:item_id>")
+def delete_items(item_id):
+    try:
+        del items[item_id]
+        return {"message": "Item deleted successfully"}
+    except KeyError:
+        abort(404, message="Item not found")
+
+
+@app.put("/item/<string:item_id>")
+def update_item(item_id):
+    item_data = request.get_json()
+    if "price" not in item_data or "name" not in item_data:
+        abort(400, message="Bad request. Ensure all required fields are filled.")
+
+    try:
+        item = items[item_id]
+        item.update(item_data)  # Update the item with the new data
+        return item
+    except KeyError:
+        abort(404, message="Item not found")
+
+
+@app.get("/item")
+def get_all_item():
+    return {"item": list(items.values())}
