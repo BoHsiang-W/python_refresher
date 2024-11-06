@@ -19,3 +19,4 @@ class ItemModel(db.Model):
     store = db.relationship(
         "StoreModel", back_populates="items"
     )  # This line is used to create a relationship between the ItemModel and the StoreModel
+    tags = db.relationship("TagModel", back_populates="items", secondary="items_tags")
