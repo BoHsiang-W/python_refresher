@@ -6,7 +6,7 @@ from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 
 from db import db
-
+from blocklist import BLOCKLIST
 import models
 
 from resources.item import blp as ItemBlueprint
@@ -36,6 +36,14 @@ def create_app(db_url=None):
     # app.config["JWT_SECRET_KEY"] = secrets.SystemRandom().getrandbits(128)
     app.config["JWT_SECRET_KEY"] = "jose"
     jwt = JWTManager(app)
+
+    @jwt.token_in_blocklist_loader
+    def check_if_token_in_blocklist(jwt_header, jwt_payload):
+        return jwt_payload["jti"] in BLOCKLIST
+
+    @jwt.revoked_token_loader
+    def revoked_token_callback(jwt_header, jwt_payload):
+        return jsonify({"message": "Token has been revoked."}), 401
 
     @jwt.additional_claims_loader
     def add_claims_to_access_token(identity):
@@ -68,12 +76,6 @@ def create_app(db_url=None):
     def token_not_fresh_callback(jwt_header, jwt_payload):
         return jsonify(
             {"description": "The token is not fresh", "error": "fresh_token_required"}
-        ), 401
-
-    @jwt.revoked_token_loader
-    def revoked_token_callback(jwt_header, jwt_payload):
-        return jsonify(
-            {"description": "The token has been revoked", "error": "token_revoked"}
         ), 401
 
     with app.app_context():
