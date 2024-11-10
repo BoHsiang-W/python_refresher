@@ -45,6 +45,12 @@ def create_app(db_url=None):
     def revoked_token_callback(jwt_header, jwt_payload):
         return jsonify({"message": "Token has been revoked."}), 401
 
+    @jwt.needs_fresh_token_loader
+    def token_not_fresh_callback(jwt_header, jwt_payload):
+        return jsonify(
+            {"description": "The token is not fresh", "error": "fresh_token_required"}
+        ), 401
+
     @jwt.additional_claims_loader
     def add_claims_to_access_token(identity):
         if identity == 1:
@@ -70,12 +76,6 @@ def create_app(db_url=None):
                 "description": "Request does not contain an access token.",
                 "error": "authorization_required",
             }
-        ), 401
-
-    @jwt.needs_fresh_token_loader
-    def token_not_fresh_callback(jwt_header, jwt_payload):
-        return jsonify(
-            {"description": "The token is not fresh", "error": "fresh_token_required"}
         ), 401
 
     with app.app_context():
