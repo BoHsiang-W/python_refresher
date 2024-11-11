@@ -10,6 +10,9 @@ class ItemModel(db.Model):
     name = db.Column(
         db.String(80), unique=True, nullable=False
     )  # unique=True means that the name has to be unique, nullable=False means that the name cannot be empty
+    description = db.Column(
+        db.String(200)
+    )  # This line is used to create a column in the database with a maximum length of 200 characters
     price = db.Column(
         db.Float(precision=2)
     )  # precision=2 means that the price will have 2 decimal places
