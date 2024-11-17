@@ -6,3 +6,6 @@ flask-sqlalchemy
 flask-jwt-extended
 passlib
 flask-migrate
+Werkzeug==2.2.2
+gunicorn
+psycopg2-binary
