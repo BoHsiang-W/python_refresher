@@ -51,3 +51,7 @@ class UserSchema(Schema):
     password = fields.Str(
         required=True, load_only=True
     )  # load_only: the field is only used for loading data, not for dumping
+
+
+class UserRegisterSchema(UserSchema):
+    email = fields.Str(required=True)
